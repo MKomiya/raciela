@@ -33,10 +33,54 @@ void MyState::delegate()
 {
     State::delegate();
     
+    dispatcher->addCustomEventListener("state:enter", [](Ref* s) {
+        CCLOG("enter state");
+    });
+    dispatcher->addCustomEventListener("state:exit", [=](Ref* s) {
+        CCLOG("exit state");
+        Router::getInstance()->removeView(view);
+    });
+
     dispatcher->addCustomEventListener("cnt:++", [=](EventCustom*) {
         count++;
         
         auto v = static_cast<MyView*>(view);
         v->updateLabel(count);
+        
+        if (count == 20) {
+            auto router = Router::getInstance();
+            router->popState();
+            router->pushState(MyNextState::create());
+        }
+    });
+}
+
+bool MyNextState::init()
+{
+    if (!State::init()) {
+        return false;
+    }
+    
+    label = "happy transition state";
+    
+    view = MyNextView::create();
+    Router::getInstance()->addView(view);
+    
+    auto v = static_cast<MyNextView*>(view);
+    v->updateLabel(label);
+    
+    return true;
+}
+
+void MyNextState::delegate()
+{
+    State::delegate();
+    
+    dispatcher->addCustomEventListener("state:enter", [](Ref* s) {
+        CCLOG("enter next state");
+    });
+    dispatcher->addCustomEventListener("state:exit", [=](Ref* s) {
+        CCLOG("exit next state");
+        Router::getInstance()->removeView(view);
     });
 }

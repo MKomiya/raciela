@@ -18,8 +18,10 @@ namespace Raciela
     class State : public cocos2d::Ref
     {
     public:
+        virtual ~State();
+        
         virtual bool init();
-        virtual void delegate(){};
+        virtual void delegate();
         
         virtual void enter(){};
         virtual void update(){};

@@ -34,3 +34,22 @@ void MyView::updateLabel(int count)
     std::string result = "count:" + std::to_string(count);
     label->setString(result);
 }
+
+bool MyNextView::init()
+{
+    if (!View::init()) {
+        return false;
+    }
+    
+    auto s = Director::getInstance()->getWinSize();
+    l = Label::createWithSystemFont("hello world", "Arial", 24);
+    l->setPosition(s.width / 2.0f, s.height / 2.0f);
+    addChild(l);
+    
+    return true;
+}
+
+void MyNextView::updateLabel(std::string str)
+{
+    l->setString(str);
+}

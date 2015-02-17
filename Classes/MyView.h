@@ -15,12 +15,23 @@
 class MyView : public Raciela::View
 {
 public:
-    virtual bool init();
+    virtual bool init() override;
     CREATE_FUNC(MyView);
     
     void updateLabel(int count);
     
     CC_SYNTHESIZE_READONLY(cocos2d::MenuItemFont*, label, Label);
+};
+
+class MyNextView : public Raciela::View
+{
+public:
+    virtual bool init() override;
+    CREATE_FUNC(MyNextView);
+    
+    void updateLabel(std::string str);
+    
+    CC_SYNTHESIZE_READONLY(cocos2d::Label*, l, Label);
 };
 
 #endif /* defined(__raciela__MyView__) */

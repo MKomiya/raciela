@@ -22,4 +22,14 @@ public:
     CC_SYNTHESIZE_READONLY(int, count, Count);
 };
 
+class MyNextState : public Raciela::State
+{
+public:
+    CREATE_FUNC(MyNextState);
+    virtual bool init() override;
+    virtual void delegate() override;
+    
+    CC_SYNTHESIZE_READONLY(std::string, label, Label);
+};
+
 #endif /* defined(__raciela__MyState__) */

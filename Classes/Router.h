@@ -42,6 +42,7 @@ namespace Raciela
     private:
         static Router* instance;
         cocos2d::Vector<State*> state_stack;
+        cocos2d::EventDispatcher* dispatcher;
     };
 }
 
