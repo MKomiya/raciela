@@ -18,7 +18,6 @@ namespace Raciela
     {
     public:
         virtual bool init();
-        CREATE_FUNC(View);
         
     protected:
         cocos2d::EventDispatcher* dispatcher;

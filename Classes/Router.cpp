@@ -7,15 +7,33 @@
 //
 
 #include "Router.h"
+#include "View.h"
 
 using namespace Raciela;
 
+Router* Router::instance;
+
+Router::Router()
+{
+    root = cocos2d::Scene::create();
+}
+
 void Router::pushState(State *state)
 {
-    state_stack.push(state);
+    state_stack.pushBack(state);
 }
 
 void Router::popState()
 {
-    state_stack.pop();
+    state_stack.popBack();
+}
+
+void Router::addView(View *view)
+{
+    root->addChild(view);
+}
+
+void Router::removeView(View *view)
+{
+    root->removeChild(view);
 }

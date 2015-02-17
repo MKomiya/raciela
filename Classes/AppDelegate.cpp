@@ -1,5 +1,7 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
+
+#include "Router.h"
+#include "MyState.h"
 
 USING_NS_CC;
 
@@ -36,10 +38,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
+    
+    auto router = Raciela::Router::getInstance();
+    router->pushState(MyState::create());
 
-    // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
-
+    auto scene = router->getRootScene();
+    
     // run
     director->runWithScene(scene);
 

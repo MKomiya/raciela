@@ -14,12 +14,20 @@
 
 namespace Raciela
 {
+    class View;
     class State : public cocos2d::Ref
     {
     public:
+        virtual bool init();
+        virtual void delegate(){};
+        
         virtual void enter(){};
         virtual void update(){};
         virtual void exit(){};
+        
+    protected:
+        View* view;
+        cocos2d::EventDispatcher* dispatcher;
     };
 }
 

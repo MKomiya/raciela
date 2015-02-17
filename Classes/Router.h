@@ -10,13 +10,15 @@
 #define __raciela__Router__
 
 #include <stdio.h>
+#include <cocos2d.h>
 #include <dispatch/dispatch.h>
-#include <stack>
+
+#include "State.h"
 
 namespace Raciela
 {
-    class State;
-    class Router
+    class View;
+    class Router : public cocos2d::Ref
     {
     public:
         static Router* getInstance() {
@@ -29,12 +31,17 @@ namespace Raciela
             return instance;
         }
         
+        Router();
         void pushState(State *state);
         void popState();
+        void addView(View *view);
+        void removeView(View *view);
+        
+        CC_SYNTHESIZE(cocos2d::Scene*, root, RootScene);
         
     private:
         static Router* instance;
-        std::stack<State*> state_stack;
+        cocos2d::Vector<State*> state_stack;
     };
 }
 
