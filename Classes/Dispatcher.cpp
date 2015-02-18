@@ -22,6 +22,18 @@ Listener::Listener(Callback callback)
     };
 }
 
+Listener* Listener::create(Callback callback)
+{
+    auto ret = new Listener(callback);
+    if (ret) {
+        ret->autorelease();
+        return ret;
+    }
+    
+    CC_SAFE_DELETE(ret);
+    return nullptr;
+}
+
 void Listener::onEvent()
 {
     listener();
@@ -34,7 +46,7 @@ void Dispatcher::subscribe(std::string ev, Callback callback)
         listeners.erase(it);
     }
     
-    listeners.insert(std::make_pair(ev, new Listener(callback)));
+    listeners.insert(ev, Listener::create(callback));
 }
 
 void Dispatcher::dispose(std::string ev)

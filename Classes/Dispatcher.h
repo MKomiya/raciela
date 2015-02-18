@@ -11,15 +11,17 @@
 
 #include <stdio.h>
 #include <dispatch/dispatch.h>
-#include <unordered_map>
+#include <cocos2d.h>
 
 namespace Raciela
 {
     typedef const std::function<void ()>& Callback;
-    class Listener
+    
+    class Listener : public cocos2d::Ref
     {
     public:
         Listener(Callback callback);
+        static Listener* create(Callback callback);
         void onEvent();
         
     private:
@@ -28,9 +30,6 @@ namespace Raciela
     
     class Dispatcher
     {
-    private:
-        typedef std::unordered_map<std::string, Listener*> Listeners;
-        
     public:
         static Dispatcher* getInstance() {
             static dispatch_once_t token;
@@ -48,7 +47,7 @@ namespace Raciela
         
     private:
         static Dispatcher* instance;
-        Listeners listeners;
+        cocos2d::Map<std::string, Listener*> listeners;
     };
 }
 
