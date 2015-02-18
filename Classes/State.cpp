@@ -20,10 +20,21 @@ bool State::init()
     view = nullptr;
     dispatcher = Director::getInstance()->getEventDispatcher();
     
+    listener_enter = listener_exit = nullptr;
+    
     delegate();
     return true;
 }
 
 void State::delegate()
 {
+    dispatcher->addCustomEventListener("reset:subscribe", [=](Ref* s) {
+        CCLOG("reset subscribe");
+        
+        dispatcher->removeEventListener(listener_enter);
+        dispatcher->removeEventListener(listener_exit);
+        
+        listener_enter->release();
+        listener_exit->release();
+    });
 }

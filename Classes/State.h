@@ -30,6 +30,9 @@ namespace Raciela
     protected:
         View* view;
         cocos2d::EventDispatcher* dispatcher;
+        
+        cocos2d::EventListener* listener_enter;
+        cocos2d::EventListener* listener_exit;
     };
 }
 

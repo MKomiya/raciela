@@ -28,6 +28,7 @@ void Router::pushState(State *state)
 void Router::popState()
 {
     dispatcher->dispatchCustomEvent("state:exit");
+    dispatcher->dispatchCustomEvent("reset:subscribe");
     state_stack.popBack();
 }
 

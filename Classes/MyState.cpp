@@ -33,10 +33,10 @@ void MyState::delegate()
 {
     State::delegate();
     
-    dispatcher->addCustomEventListener("state:enter", [](Ref* s) {
+    listener_enter = dispatcher->addCustomEventListener("state:enter", [](Ref* s) {
         CCLOG("enter state");
     });
-    dispatcher->addCustomEventListener("state:exit", [=](Ref* s) {
+    listener_exit = dispatcher->addCustomEventListener("state:exit", [=](Ref* s) {
         CCLOG("exit state");
         Router::getInstance()->removeView(view);
     });
@@ -76,10 +76,10 @@ void MyNextState::delegate()
 {
     State::delegate();
     
-    dispatcher->addCustomEventListener("state:enter", [](Ref* s) {
+    listener_enter = dispatcher->addCustomEventListener("state:enter", [](Ref* s) {
         CCLOG("enter next state");
     });
-    dispatcher->addCustomEventListener("state:exit", [=](Ref* s) {
+    listener_exit = dispatcher->addCustomEventListener("state:exit", [=](Ref* s) {
         CCLOG("exit next state");
         Router::getInstance()->removeView(view);
     });
