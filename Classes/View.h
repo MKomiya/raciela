@@ -14,13 +14,14 @@
 
 namespace Raciela
 {
+    class Dispatcher;
     class View : public cocos2d::Layer
     {
     public:
         virtual bool init();
         
     protected:
-        cocos2d::EventDispatcher* dispatcher;
+        Dispatcher* dispatcher;
     };
 }
 

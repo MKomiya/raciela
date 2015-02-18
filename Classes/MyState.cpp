@@ -9,6 +9,7 @@
 #include "MyState.h"
 #include "MyView.h"
 #include "Router.h"
+#include "Dispatcher.h"
 
 using namespace Raciela;
 USING_NS_CC;
@@ -33,15 +34,15 @@ void MyState::delegate()
 {
     State::delegate();
     
-    listener_enter = dispatcher->addCustomEventListener("state:enter", [](Ref* s) {
+    dispatcher->subscribe("state:enter", []() {
         CCLOG("enter state");
     });
-    listener_exit = dispatcher->addCustomEventListener("state:exit", [=](Ref* s) {
+    dispatcher->subscribe("state:exit", [=]() {
         CCLOG("exit state");
         Router::getInstance()->removeView(view);
     });
 
-    dispatcher->addCustomEventListener("cnt:++", [=](EventCustom*) {
+    dispatcher->subscribe("cnt:++", [=]() {
         count++;
         
         auto v = static_cast<MyView*>(view);
@@ -76,10 +77,10 @@ void MyNextState::delegate()
 {
     State::delegate();
     
-    listener_enter = dispatcher->addCustomEventListener("state:enter", [](Ref* s) {
+    dispatcher->subscribe("state:enter", []() {
         CCLOG("enter next state");
     });
-    listener_exit = dispatcher->addCustomEventListener("state:exit", [=](Ref* s) {
+    dispatcher->subscribe("state:exit", [=]() {
         CCLOG("exit next state");
         Router::getInstance()->removeView(view);
     });

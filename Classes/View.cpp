@@ -7,6 +7,7 @@
 //
 
 #include "View.h"
+#include "Dispatcher.h"
 
 using namespace Raciela;
 USING_NS_CC;
@@ -17,6 +18,6 @@ bool View::init()
         return false;
     }
     
-    dispatcher = Director::getInstance()->getEventDispatcher();
+    dispatcher = Dispatcher::getInstance();
     return true;
 }

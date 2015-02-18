@@ -7,6 +7,7 @@
 //
 
 #include "MyView.h"
+#include "Dispatcher.h"
 
 using namespace Raciela;
 USING_NS_CC;
@@ -19,7 +20,7 @@ bool MyView::init()
     
     auto s = Director::getInstance()->getWinSize();
     label = MenuItemFont::create("count:0", [=](Ref *s) {
-        dispatcher->dispatchCustomEvent("cnt:++");
+        dispatcher->dispatch("cnt:++");
     });
     label->setPosition(s.width / 2.0f, s.height / 2.0f);
     auto menu = Menu::create(label, nullptr);

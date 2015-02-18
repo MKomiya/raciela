@@ -8,6 +8,7 @@
 
 #include "Router.h"
 #include "View.h"
+#include "Dispatcher.h"
 
 using namespace Raciela;
 
@@ -16,19 +17,18 @@ Router* Router::instance;
 Router::Router()
 {
     root = cocos2d::Scene::create();
-    dispatcher = cocos2d::Director::getInstance()->getEventDispatcher();
+    dispatcher = Dispatcher::getInstance();
 }
 
 void Router::pushState(State *state)
 {
     state_stack.pushBack(state);
-    dispatcher->dispatchCustomEvent("state:enter");
+    dispatcher->dispatch("state:enter");
 }
 
 void Router::popState()
 {
-    dispatcher->dispatchCustomEvent("state:exit");
-    dispatcher->dispatchCustomEvent("reset:subscribe");
+    dispatcher->dispatch("state:exit");
     state_stack.popBack();
 }
 

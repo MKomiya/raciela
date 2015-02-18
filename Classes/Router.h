@@ -18,6 +18,7 @@
 namespace Raciela
 {
     class View;
+    class Dispatcher;
     class Router : public cocos2d::Ref
     {
     public:
@@ -42,7 +43,7 @@ namespace Raciela
     private:
         static Router* instance;
         cocos2d::Vector<State*> state_stack;
-        cocos2d::EventDispatcher* dispatcher;
+        Dispatcher* dispatcher;
     };
 }
 
