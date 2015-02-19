@@ -56,7 +56,6 @@ void Dispatcher::dispose(std::string ev)
         return ;
     }
     
-    delete it->second;
     listeners.erase(it);
 }
 
