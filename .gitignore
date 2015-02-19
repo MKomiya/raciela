@@ -1,3 +1,34 @@
-Resources/
-proj.ios_mac/
+# Mac
+.DS_Store
+
+#cocos2d-x
+libs/
+bin/
+obj/
+assets/
+gen/
+out/
+.classpath
+.project
+.cproject
 cocos2d/
+proj.ios_mac/build/
+!.cocos-project.json
+
+# XCode
+*.moved-aside
+build/*
+*.xcworkspace
+*.mode1v3
+*.mode2v3
+*.pbxuser
+!default.xcworkspace
+!default.mode1v3
+!default.mode2v3
+!default.pbxuser
+*.perspectivev3
+profile
+xcuserdata
+.idea/*
+**/*.xcodeproj/*
+!**/*.xcodeproj/project.pbxproj
