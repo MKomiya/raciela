@@ -34,15 +34,15 @@ void MyState::delegate()
 {
     State::delegate();
     
-    dispatcher->subscribe("state:enter", []() {
+    dispatcher->subscribe<void()>("state:enter", []() {
         CCLOG("enter state");
     });
-    dispatcher->subscribe("state:exit", [=]() {
+    dispatcher->subscribe<void()>("state:exit", [=]() {
         CCLOG("exit state");
         Router::getInstance()->removeView(view);
     });
 
-    dispatcher->subscribe("cnt:++", [=]() {
+    dispatcher->subscribe<void()>("cnt:++", [=]() {
         count++;
         
         auto v = static_cast<MyView*>(view);
@@ -77,10 +77,10 @@ void MyNextState::delegate()
 {
     State::delegate();
     
-    dispatcher->subscribe("state:enter", []() {
+    dispatcher->subscribe<void()>("state:enter", []() {
         CCLOG("enter next state");
     });
-    dispatcher->subscribe("state:exit", [=]() {
+    dispatcher->subscribe<void()>("state:exit", [=]() {
         CCLOG("exit next state");
         Router::getInstance()->removeView(view);
     });

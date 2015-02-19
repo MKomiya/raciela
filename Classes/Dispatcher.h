@@ -11,24 +11,41 @@
 
 #include <stdio.h>
 #include <dispatch/dispatch.h>
+#include <unordered_map>
 #include <cocos2d.h>
 
 namespace Raciela
 {
-    typedef const std::function<void ()>& Callback;
-    
-    class Listener : public cocos2d::Ref
+    class ListenerBase : public cocos2d::Ref
     {
     public:
-        Listener(Callback callback);
-        static Listener* create(Callback callback);
-        void onEvent();
-        
-    private:
-        std::function<void ()> listener;
+        virtual ~ListenerBase() {};
     };
     
-    class Dispatcher
+    template<typename T>
+    class Listener final : public ListenerBase
+    {
+    public:
+        inline Listener(const std::function<T> &func) : func(func) {};
+        static Listener* create(const std::function<T> &func)
+        {
+            auto ret = new Listener<T>(func);
+            if (ret) {
+                ret->autorelease();
+                return ret;
+            }
+            CC_SAFE_DELETE(ret);
+            return nullptr;
+        }
+        
+        template<typename... A>
+        inline void onEvent(const A &...args) { func(args...); };
+        
+    private:
+        const std::function<T> func;
+    };
+    
+    class Dispatcher final
     {
     public:
         static Dispatcher* getInstance() {
@@ -41,13 +58,49 @@ namespace Raciela
             return instance;
         }
         
-        void subscribe(std::string ev, Callback callback);
-        void dispose(std::string ev);
-        void dispatch(std::string ev);
+        template<typename T>
+        void subscribe(std::string ev, const std::function<T> &callback)
+        {
+            auto it = listener_list.find(ev);
+            if (it != listener_list.end()) {
+                listener_list.erase(it);
+            }
+            auto f = Raciela::Listener<T>::create(callback);
+            listener_list.insert(ev, f);
+        }
+        
+        void dispose(std::string ev)
+        {
+            auto it = listener_list.find(ev);
+            if (it == listener_list.end()) {
+                return ;
+            }
+            
+            listener_list.erase(it);
+        }
+        
+        template<typename ...Ts>
+        void dispatch(std::string ev, const Ts &...args)
+        {
+            auto it = listener_list.find(ev);
+            if (it == listener_list.end()) {
+                return;
+            }
+            
+            auto f = dynamic_cast<Listener<void (Ts...)> *>(it->second);
+            if (!f) {
+                return ;
+            }
+            
+            f->onEvent(args...);
+        }
         
     private:
+        inline Dispatcher() {};
+        inline ~Dispatcher() {};
+        
         static Dispatcher* instance;
-        cocos2d::Map<std::string, Listener*> listeners;
+        cocos2d::Map<std::string, ListenerBase*> listener_list;
     };
 }
 
