@@ -12,7 +12,8 @@ out/
 .project
 .cproject
 cocos2d/
-proj.ios_mac/build/
+proj.ios_mac/
+Resources/
 !.cocos-project.json
 
 # XCode
