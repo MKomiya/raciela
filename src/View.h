@@ -19,6 +19,7 @@ namespace Raciela
     {
     public:
         virtual bool init();
+        virtual void onChange();
         
     protected:
         Dispatcher* dispatcher;
