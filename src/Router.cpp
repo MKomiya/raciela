@@ -24,10 +24,14 @@ void Router::pushState(State *state)
 {
     state_stack.pushBack(state);
     dispatcher->dispatch("state:enter");
+    state->enter();
 }
 
 void Router::popState()
 {
+    auto state = state_stack.front();
+    
+    state->exit();
     dispatcher->dispatch("state:exit");
     state_stack.popBack();
 }

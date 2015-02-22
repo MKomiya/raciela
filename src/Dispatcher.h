@@ -82,6 +82,8 @@ namespace Raciela
         template<typename ...Ts>
         void dispatch(std::string ev, const Ts &...args)
         {
+            CCLOG("dispatch: %s", ev.c_str());
+            
             auto it = listener_list.find(ev);
             if (it == listener_list.end()) {
                 return;
