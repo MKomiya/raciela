@@ -38,6 +38,8 @@ namespace Raciela
         void addView(View *view);
         void removeView(View *view);
         
+        void update(float t);
+        
         CC_SYNTHESIZE(cocos2d::Scene*, root, RootScene);
         
     private:

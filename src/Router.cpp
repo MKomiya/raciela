@@ -29,7 +29,7 @@ void Router::pushState(State *state)
 
 void Router::popState()
 {
-    auto state = state_stack.front();
+    auto state = state_stack.back();
     
     state->exit();
     dispatcher->dispatch("state:exit");
@@ -44,4 +44,12 @@ void Router::addView(View *view)
 void Router::removeView(View *view)
 {
     root->removeChild(view);
+}
+
+void Router::update(float t)
+{
+    if (!state_stack.empty()) {
+        auto state = state_stack.back();
+        state->update();
+    }
 }
