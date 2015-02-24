@@ -34,6 +34,11 @@ void Router::popState()
     state->exit();
     dispatcher->dispatch("state:exit");
     state_stack.popBack();
+    
+    if (!state_stack.empty()) {
+        auto next = state_stack.back();
+        next->enter();
+    }
 }
 
 void Router::addView(View *view)

@@ -24,6 +24,7 @@ namespace Raciela
         virtual bool init();
         virtual void delegate();
         
+        virtual void created(){};
         virtual void enter(){};
         virtual void update(){};
         virtual void exit(){};
