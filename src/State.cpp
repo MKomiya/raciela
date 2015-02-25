@@ -18,7 +18,6 @@ State::~State()
 
 bool State::init()
 {
-    view = nullptr;
     dispatcher = Dispatcher::getInstance();
     
     delegate();

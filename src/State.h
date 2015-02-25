@@ -14,7 +14,6 @@
 
 namespace Raciela
 {
-    class View;
     class Dispatcher;
     class State : public cocos2d::Ref
     {
@@ -30,7 +29,6 @@ namespace Raciela
         virtual void exit(){};
         
     protected:
-        View* view;
         Dispatcher* dispatcher;
     };
 }
