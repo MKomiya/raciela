@@ -22,6 +22,11 @@ Router::Router()
 
 void Router::pushState(State *state)
 {
+    if (!state_stack.empty()) {
+        auto prev = state_stack.back();
+        prev->exit();
+    }
+    
     state_stack.pushBack(state);
     dispatcher->dispatch("state:enter");
     state->enter();
