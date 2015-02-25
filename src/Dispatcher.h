@@ -79,6 +79,11 @@ namespace Raciela
             listener_list.erase(it);
         }
         
+        void removeAllListener()
+        {
+            listener_list.clear();
+        }
+        
         template<typename ...Ts>
         void dispatch(std::string ev, const Ts &...args)
         {
