@@ -21,7 +21,3 @@ bool View::init()
     dispatcher = Dispatcher::getInstance();
     return true;
 }
-
-void View::onChange()
-{
-}
