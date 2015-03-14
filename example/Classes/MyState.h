@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include "State.h"
 
+class MyView;
+class MyNextView;
 class MyState : public Raciela::State
 {
 public:
@@ -19,6 +21,7 @@ public:
     virtual bool init() override;
     virtual void delegate() override;
     
+    CC_SYNTHESIZE_READONLY(MyView*, view, View);
     CC_SYNTHESIZE_READONLY(int, count, Count);
 };
 
@@ -29,6 +32,7 @@ public:
     virtual bool init() override;
     virtual void delegate() override;
     
+    CC_SYNTHESIZE_READONLY(MyNextView*, view, View);
     CC_SYNTHESIZE_READONLY(std::string, label, Label);
 };
 

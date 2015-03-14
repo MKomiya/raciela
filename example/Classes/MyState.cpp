@@ -45,8 +45,7 @@ void MyState::delegate()
     dispatcher->subscribe<void()>("cnt:++", [=]() {
         count++;
         
-        auto v = static_cast<MyView*>(view);
-        v->updateLabel(count);
+        view->updateLabel(count);
         
         if (count == 20) {
             auto router = Router::getInstance();
@@ -67,8 +66,7 @@ bool MyNextState::init()
     view = MyNextView::create();
     Router::getInstance()->addView(view);
     
-    auto v = static_cast<MyNextView*>(view);
-    v->updateLabel(label);
+    view->updateLabel(label);
     
     return true;
 }
