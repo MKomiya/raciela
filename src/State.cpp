@@ -12,18 +12,10 @@
 using namespace Raciela;
 USING_NS_CC;
 
-State::~State()
-{
-}
-
 bool State::init()
 {
     dispatcher = Dispatcher::getInstance();
     
     delegate();
     return true;
-}
-
-void State::delegate()
-{
 }
