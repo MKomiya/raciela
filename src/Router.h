@@ -32,7 +32,6 @@ namespace Raciela
             return instance;
         }
         
-        Router();
         void pushState(State *state);
         void popState();
         void addView(View *view);
@@ -43,6 +42,9 @@ namespace Raciela
         CC_SYNTHESIZE(cocos2d::Scene*, root, RootScene);
         
     private:
+        Router();
+        Router(const Router&);
+        
         static Router* instance;
         cocos2d::Vector<State*> state_stack;
         Dispatcher* dispatcher;
