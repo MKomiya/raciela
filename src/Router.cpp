@@ -24,11 +24,10 @@ void Router::pushState(State *state)
 {
     if (!state_stack.empty()) {
         auto prev = state_stack.back();
-        prev->exit();
+        prev->pause();
     }
     
     state_stack.pushBack(state);
-    dispatcher->dispatch("state:enter");
     state->enter();
 }
 
@@ -37,13 +36,26 @@ void Router::popState()
     auto state = state_stack.back();
     
     state->exit();
-    dispatcher->dispatch("state:exit");
     state_stack.popBack();
     
     if (!state_stack.empty()) {
         auto next = state_stack.back();
-        next->enter();
+        next->resume();
     }
+}
+
+void Router::replaceState(State *state)
+{
+    if (state_stack.empty()) {
+        return ;
+    }
+    
+    auto prev = state_stack.back();
+    prev->exit();
+    state_stack.popBack();
+    
+    state_stack.pushBack(state);
+    state->enter();
 }
 
 void Router::addView(View *view)

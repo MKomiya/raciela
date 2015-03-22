@@ -24,8 +24,10 @@ namespace Raciela
         virtual void delegate(){};
         
         virtual void enter(){};
+        virtual void resume(){};
         virtual void update(){};
         virtual void exit(){};
+        virtual void pause(){};
         
     protected:
         Dispatcher* dispatcher;

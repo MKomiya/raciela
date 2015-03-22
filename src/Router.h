@@ -34,6 +34,8 @@ namespace Raciela
         
         void pushState(State *state);
         void popState();
+        void replaceState(State *state);
+        
         void addView(View *view);
         void removeView(View *view);
         
