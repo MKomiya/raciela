@@ -19,3 +19,13 @@ bool State::init()
     delegate();
     return true;
 }
+
+void State::exit()
+{
+    dispatcher->removeAllListener();
+}
+
+void State::pause()
+{
+    dispatcher->removeAllListener();
+}
