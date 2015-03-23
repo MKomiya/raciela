@@ -36,12 +36,7 @@ namespace Raciela
         void popState();
         void replaceState(State *state);
         
-        void addView(View *view);
-        void removeView(View *view);
-        
         void update(float t);
-        
-        CC_SYNTHESIZE(cocos2d::Scene*, root, RootScene);
         
     private:
         Router();

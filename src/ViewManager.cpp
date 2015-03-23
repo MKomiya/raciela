@@ -11,6 +11,13 @@
 using namespace Raciela;
 USING_NS_CC;
 
+ViewManager* ViewManager::instance;
+
+ViewManager::ViewManager()
+{
+    root = Scene::create();
+}
+
 void ViewManager::addView(View *view)
 {
     root->addChild(view);

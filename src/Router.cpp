@@ -16,7 +16,6 @@ Router* Router::instance;
 
 Router::Router()
 {
-    root = cocos2d::Scene::create();
     dispatcher = Dispatcher::getInstance();
 }
 
@@ -56,16 +55,6 @@ void Router::replaceState(State *state)
     
     state_stack.pushBack(state);
     state->enter();
-}
-
-void Router::addView(View *view)
-{
-    root->addChild(view);
-}
-
-void Router::removeView(View *view)
-{
-    root->removeChild(view);
 }
 
 void Router::update(float t)
