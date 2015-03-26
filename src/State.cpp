@@ -15,9 +15,17 @@ USING_NS_CC;
 bool State::init()
 {
     dispatcher = Dispatcher::getInstance();
-    
-    delegate();
     return true;
+}
+
+void State::enter()
+{
+    delegate();
+}
+
+void State::resume()
+{
+    delegate();
 }
 
 void State::exit()
