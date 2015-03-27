@@ -121,7 +121,25 @@ namespace Raciela
             
             f->onEvent(args...);
         }
-        
+
+        template<typename ...Ts>
+        void dispatch_transition(std::string ev, const Ts &...args)
+        {
+            CCLOG("dispatch: %s", ev.c_str());
+            
+            auto it = transition_listener_list.find(ev);
+            if (it == transition_listener_list.end()) {
+                return;
+            }
+            
+            auto f = dynamic_cast<Listener<void (Ts...)> *>(it->second);
+            if (!f) {
+                return ;
+            }
+            
+            f->onEvent(args...);
+        }
+
     private:
         inline Dispatcher() {};
         inline ~Dispatcher() {};
