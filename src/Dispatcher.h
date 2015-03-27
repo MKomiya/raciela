@@ -68,7 +68,18 @@ namespace Raciela
             auto f = Raciela::Listener<T>::create(callback);
             listener_list.insert(ev, f);
         }
-        
+
+        template<typename T>
+        void subscribe_transition(std::string ev, const std::function<T> &callback)
+        {
+            auto it = listener_list.find(ev);
+            if (it != listener_list.end()) {
+                listener_list.erase(it);
+            }
+            auto f = Raciela::Listener<T>::create(callback);
+            transition_listener_list.insert(ev, f);
+        }
+
         void dispose(std::string ev)
         {
             auto it = listener_list.find(ev);
@@ -77,6 +88,15 @@ namespace Raciela
             }
             
             listener_list.erase(it);
+        }
+
+        void dispose_transition(std::string ev)
+        {
+            auto it = transition_listener_list.find(ev);
+            if (it == transition_listener_list.end()) {
+                return ;
+            }
+            transition_listener_list.erase(it);
         }
         
         void removeAllListener()
@@ -108,6 +128,7 @@ namespace Raciela
         
         static Dispatcher* instance;
         cocos2d::Map<std::string, ListenerBase*> listener_list;
+        cocos2d::Map<std::string, ListenerBase*> transition_listener_list;
     };
 }
 
