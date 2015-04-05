@@ -20,6 +20,7 @@ public:
     CREATE_FUNC(MyState);
     virtual bool init() override;
     virtual void delegate() override;
+    virtual void exit() override;
     
     CC_SYNTHESIZE_READONLY(MyView*, view, View);
     CC_SYNTHESIZE_READONLY(int, count, Count);

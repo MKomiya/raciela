@@ -10,6 +10,7 @@
 #include "MyView.h"
 #include "Router.h"
 #include "Dispatcher.h"
+#include "ViewManager.h"
 
 using namespace Raciela;
 USING_NS_CC;
@@ -25,7 +26,7 @@ bool MyState::init()
     
     // init views
     view = MyView::create();
-    Router::getInstance()->addView(view);
+    ViewManager::getInstance()->addView(view);
     
     return true;
 }
@@ -39,7 +40,6 @@ void MyState::delegate()
     });
     dispatcher->subscribe<void()>("state:exit", [=]() {
         CCLOG("exit state");
-        Router::getInstance()->removeView(view);
     });
 
     dispatcher->subscribe<void()>("cnt:++", [=]() {
@@ -49,10 +49,15 @@ void MyState::delegate()
         
         if (count == 20) {
             auto router = Router::getInstance();
-            router->popState();
-            router->pushState(MyNextState::create());
+            router->replaceState(MyNextState::create());
         }
     });
+}
+
+void MyState::exit()
+{
+    State::exit();
+    ViewManager::getInstance()->removeView(view);
 }
 
 bool MyNextState::init()
@@ -64,7 +69,7 @@ bool MyNextState::init()
     label = "happy transition state";
     
     view = MyNextView::create();
-    Router::getInstance()->addView(view);
+    ViewManager::getInstance()->addView(view);
     
     view->updateLabel(label);
     
@@ -80,6 +85,6 @@ void MyNextState::delegate()
     });
     dispatcher->subscribe<void()>("state:exit", [=]() {
         CCLOG("exit next state");
-        Router::getInstance()->removeView(view);
+        ViewManager::getInstance()->removeView(view);
     });
 }

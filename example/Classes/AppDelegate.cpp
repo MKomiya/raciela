@@ -1,6 +1,7 @@
 #include "AppDelegate.h"
 
 #include "Router.h"
+#include "ViewManager.h"
 #include "MyState.h"
 
 USING_NS_CC;
@@ -42,7 +43,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto router = Raciela::Router::getInstance();
     router->pushState(MyState::create());
 
-    auto scene = router->getRootScene();
+    auto scene = Raciela::ViewManager::getInstance()->getRootScene();
     
     // run
     director->runWithScene(scene);
