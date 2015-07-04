@@ -41,6 +41,7 @@ namespace Raciela
     private:
         Router();
         Router(const Router&);
+        ~Router();
         
         static Router* instance;
         cocos2d::Vector<State*> state_stack;
