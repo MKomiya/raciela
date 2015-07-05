@@ -19,6 +19,11 @@ Router::Router()
     dispatcher = Dispatcher::getInstance();
 }
 
+Router::~Router()
+{
+    dispatcher = nullptr;
+}
+
 void Router::pushState(State *state)
 {
     if (!state_stack.empty()) {
